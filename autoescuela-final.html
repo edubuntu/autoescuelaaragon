@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoescuela Aragón - San Sebastián</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --rojo-autoescuela: #CE0203;
+            --verde-autoescuela: #005C43;
+            --amarillo-autoescuela: #FFB10F;
+            --gris-claro: #f8f9fa;
+            --blanco: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        .top-bar {
+            background: var(--rojo-autoescuela);
+            color: white;
+            padding: 0.8rem 0;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .top-bar a:hover {
+            color: var(--amarillo-autoescuela);
+        }
+
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 3rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container img {
+            height: 90px;
+            width: auto;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--verde-autoescuela);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--amarillo-autoescuela);
+            transition: width 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--rojo-autoescuela);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--verde-autoescuela);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Hero Carousel */
+        .hero-carousel {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--verde-autoescuela) 0%, #00A676 100%);
+        }
+
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 10;
+            width: 90%;
+            max-width: 1000px;
+            padding: 2rem;
+            background: rgba(0, 92, 67, 0.85);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .carousel-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .carousel-content .highlight {
+            color: var(--amarillo-autoescuela);
+        }
+
+        .carousel-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .carousel-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--verde-autoescuela) 0%, #00A676 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 20;
+        }
+
+        .carousel-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            border: 2px solid white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .carousel-dot.active {
+            background: var(--amarillo-autoescuela);
+            transform: scale(1.2);
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.3);
+            color: white;
+            border: none;
+            font-size: 2.5rem;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 20;
+            border-radius: 10px;
+        }
+
+        .carousel-arrow:hover {
+            background: rgba(255,255,255,0.5);
+        }
+
+        .carousel-arrow.prev {
+            left: 20px;
+        }
+
+        .carousel-arrow.next {
+            right: 20px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--amarillo-autoescuela);
+            color: var(--verde-autoescuela);
+            box-shadow: 0 4px 15px rgba(255, 177, 15, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #ffb700;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 177, 15, 0.5);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--verde-autoescuela);
+            box-shadow: 0 4px 15px rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gris-claro);
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 3rem;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--verde-autoescuela);
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--amarillo-autoescuela);
+            margin: 1.5rem auto;
+            border-radius: 2px;
+        }
+
+        /* Cards Grid - Cursos: siempre 3 en primera fila, 2 centradas en segunda */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .cards-grid .card {
+            grid-column: span 2;
+        }
+
+        /* 4ª tarjeta empieza en columna 2 para centrar las dos últimas */
+        .cards-grid .card:nth-child(4) {
+            grid-column: 2 / 4;
+        }
+
+        .cards-grid .card:nth-child(5) {
+            grid-column: 4 / 6;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-color: var(--amarillo-autoescuela);
+        }
+
+        .card-image-placeholder {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, var(--gris-claro) 0%, #e9ecef 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-bottom: 3px solid var(--amarillo-autoescuela);
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .card h3 {
+            color: var(--verde-autoescuela);
+            margin-bottom: 0.8rem;
+            font-size: 1.7rem;
+        }
+
+        .card .age {
+            display: inline-block;
+            background: var(--amarillo-autoescuela);
+            color: var(--verde-autoescuela);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin: 0.5rem 0 1rem 0;
+        }
+
+        .card p {
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Tarjetas expandibles */
+        .card-extra {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 2rem;
+            border-top: 0px solid var(--amarillo-autoescuela);
+        }
+
+        .card-extra.open {
+            max-height: 400px;
+            padding: 1rem 2rem 1.5rem;
+            border-top: 2px solid var(--amarillo-autoescuela);
+        }
+
+        .card-extra ul {
+            list-style: none;
+            margin-top: 0.5rem;
+        }
+
+        .card-extra ul li {
+            padding: 0.35rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .card-extra ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--verde-autoescuela);
+            font-weight: bold;
+        }
+
+        .card-extra p {
+            color: #555;
+            margin-top: 0.5rem;
+            line-height: 1.7;
+        }
+
+        .btn-ver-mas {
+            display: block;
+            width: calc(100% - 4rem);
+            margin: 0 2rem 1.5rem;
+            padding: 0.6rem;
+            background: none;
+            border: 2px solid var(--amarillo-autoescuela);
+            border-radius: 25px;
+            color: var(--verde-autoescuela);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .btn-ver-mas:hover {
+            background: var(--amarillo-autoescuela);
+            color: var(--verde-autoescuela);
+        }
+
+        .btn-ver-mas.open {
+            background: var(--amarillo-autoescuela);
+        }
+
+        /* Features */
+        .features {
+            background: var(--gris-claro);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .feature-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-item h3 {
+            color: var(--verde-autoescuela);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        /* Alumnos Section */
+        .alumnos-section {
+            background: white;
+        }
+
+        .alumnos-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .alumnos-card {
+            background: var(--gris-claro);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 3px solid var(--amarillo-autoescuela);
+            transition: all 0.3s;
+        }
+
+        .alumnos-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .alumnos-card h3 {
+            color: var(--rojo-autoescuela);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .access-steps {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .access-steps li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .access-steps li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--verde-autoescuela);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .external-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* En la tarjeta de "Enlaces Útiles" siempre en columna */
+        .enlaces-utiles-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .external-link {
+            background: var(--verde-autoescuela);
+            color: white;
+            padding: 0.9rem 1.8rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .external-link:hover {
+            background: var(--rojo-autoescuela);
+            transform: scale(1.05);
+        }
+
+        /* Locations */
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .location-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--rojo-autoescuela);
+        }
+
+        .location-map {
+            width: 100%;
+            height: 300px;
+            background: var(--gris-claro);
+            position: relative;
+        }
+
+        .location-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .location-info-container {
+            padding: 2rem;
+        }
+
+        .location-card h3 {
+            color: var(--verde-autoescuela);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .location-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .info-item span:first-child {
+            font-size: 1.8rem;
+            min-width: 35px;
+        }
+
+        .info-item a {
+            color: var(--verde-autoescuela);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .info-item a:hover {
+            color: var(--rojo-autoescuela);
+        }
+
+        .map-button {
+            display: inline-block;
+            background: var(--amarillo-autoescuela);
+            color: var(--verde-autoescuela);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        .map-button:hover {
+            background: var(--verde-autoescuela);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--verde-autoescuela);
+            color: white;
+            padding: 4rem 3rem 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--amarillo-autoescuela);
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+        }
+
+        .footer-section p {
+            margin-bottom: 0.5rem;
+            line-height: 1.8;
+        }
+
+        .vacation-notice {
+            background: var(--rojo-autoescuela);
+            padding: 1.8rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            font-weight: 600;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            nav {
+                padding: 1rem 2rem;
+            }
+
+            section {
+                padding: 4rem 2rem;
+            }
+
+            .carousel-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .carousel-content p {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 85%;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                padding: 5rem 2rem;
+                transition: left 0.3s;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+                align-items: flex-start;
+                gap: 2rem;
+            }
+
+            nav ul.active {
+                left: 0;
+            }
+
+            .hero-carousel {
+                height: 500px;
+            }
+
+            .carousel-content h1 {
+                font-size: 2rem;
+            }
+
+            .carousel-content p {
+                font-size: 1rem;
+            }
+
+            .carousel-arrow {
+                font-size: 1.8rem;
+                padding: 0.8rem 1rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .top-bar {
+                font-size: 0.8rem;
+            }
+
+            .top-bar a {
+                display: block;
+                margin: 0.3rem 0;
+            }
+
+             .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cards-grid .card {
+                grid-column: span 1 !important;
+            }
+
+            .features-grid,
+            .locations-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .locations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            footer {
+                padding: 3rem 1rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container img {
+                height: 45px;
+            }
+
+            .carousel-content {
+                padding: 1.5rem;
+            }
+
+            .carousel-content h1 {
+                font-size: 1.6rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Contact Bar -->
+    <div class="top-bar">
+        <span>📞 Amara: <a href="tel:943452270">943 452 270</a></span>
+        <span>📞 Eguia: <a href="tel:943287536">943 287 536</a></span>
+        <span>✉️ <a href="mailto:amara@autoescuelaaragon.com">amara@autoescuelaaragon.com</a></span>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="logo-autoescuela.png" alt="Autoescuela Aragón">
+            </div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul id="navMenu">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#cursos">Cursos</a></li>
+                <li><a href="#alumnos">Alumnos</a></li>
+                <li><a href="#ventajas">Ventajas</a></li>
+                <li><a href="#ubicaciones">Ubicaciones</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Carousel -->
+    <div class="hero-carousel" id="inicio">
+        <div class="carousel-container" id="carouselContainer">
+            <!-- Slide 1 -->
+            <div class="carousel-slide">
+                <!-- <div class="carousel-placeholder">🖼️ FOTO 1: Tu Imagen Aquí (1920x600px)</div> -->
+                <img src="carrusel/carrusel7.png" alt="Descripción">
+                <div class="carousel-content">
+                    <h1>¡Tu carnet de conducir te está <span class="highlight">esperando</span>! 🎉</h1>
+                    <p>La autoescuela de confianza en San Sebastián</p>
+                    <div class="cta-buttons">
+                        <a href="#cursos" class="btn btn-primary">Ver Cursos 🚀</a>
+                        <a href="#contacto" class="btn btn-secondary">Contactar 💬</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-slide">
+                <!-- <div class="carousel-placeholder">🖼️ FOTO 2: Tu Imagen Aquí (1920x600px)</div> -->
+                <img src="carrusel/carrusel8.png" alt="Descripción">
+                <div class="carousel-content">
+                    <h1>Profesores <span class="highlight">experimentados</span></h1>
+                    <p>Aprende con los mejores profesionales</p>
+                    <div class="cta-buttons">
+                        <a href="#ventajas" class="btn btn-primary">Descubre Más ⭐</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-slide">
+                <!-- <div class="carousel-placeholder">🖼️ FOTO 3: Tu Imagen Aquí (1920x600px)</div> -->
+                 <img src="carrusel/carrusel9.png" alt="Descripción">
+                <div class="carousel-content">
+                    <h1>Teórico <span class="highlight">online 24/7</span></h1>
+                    <p>Estudia cuando y donde quieras</p>
+                    <div class="cta-buttons">
+                        <a href="#alumnos" class="btn btn-primary">Acceder 📱</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="carousel-arrow prev" onclick="changeSlide(-1)">‹</button>
+        <button class="carousel-arrow next" onclick="changeSlide(1)">›</button>
+
+        <div class="carousel-nav" id="carouselNav">
+            <span class="carousel-dot active" onclick="goToSlide(0)"></span>
+            <span class="carousel-dot" onclick="goToSlide(1)"></span>
+            <span class="carousel-dot" onclick="goToSlide(2)"></span>
+        </div>
+    </div>
+
+    <!-- Cursos -->
+    <section id="cursos">
+        <div class="section-container">
+            <h2>🎯 Nuestros Cursos</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-image-placeholder"><img src="carnets/carnetsAM.png" alt="Permiso AM" style="width:100%;height:100%;object-fit:cover;"></div>
+                    <div class="card-content">
+                        <h3>Permiso AM</h3>
+                        <span class="age">Desde 15 años</span>
+                        <p>Conduce ciclomotores. ¡Tu primera libertad sobre ruedas!</p>
+                        <p><strong>Incluye:</strong> Teórico y práctico</p>
+                    </div>
+                    <button class="btn-ver-mas" onclick="toggleCard(this)">Ver más ▾</button>
+                    <div class="card-extra">
+                        <p><strong>¿Qué puedes conducir?</strong></p>
+                        <ul>
+                            <li>Ciclomotores hasta 50cc</li>
+                            <li>Velocidad máxima 45 km/h</li>
+                            <li>Cuadriciclos ligeros</li>
+                        </ul>
+                        <p style="margin-top:0.8rem;"><strong>Pruebas:</strong> Examen teórico + Examen de circulación</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-image-placeholder"><img src="carnets/a1_a2_web-800x400.jpg" alt="Permiso A1/A2" style="width:100%;height:100%;object-fit:cover;"></div>
+                    <div class="card-content">
+                        <h3>Permiso A1 / A2</h3>
+                        <span class="age">16 / 18 años</span>
+                        <p>Tu moto te espera. Siente la adrenalina.</p>
+                        <p><strong>Incluye:</strong> Teórico específico + Pista + Circulación</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-image-placeholder"><img src="carnets/IMG_4070_web3-1024x768.jpg" alt="Permiso B" style="width:100%;height:100%;object-fit:cover;"></div>
+                    <div class="card-content">
+                        <h3>Carnet B</h3>
+                        <span class="age">Desde 18 años</span>
+                        <p>El más popular. ¡Empieza tu aventura!</p>
+                        <p><strong>Incluye:</strong> Teórico online 24/7 + Prácticas flexibles</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-image-placeholder"><img src="carnets/a_web-1024x768.jpg" alt="Carnet A" style="width:100%;height:100%;object-fit:cover;"></div>
+                    <div class="card-content">
+                        <h3>Carnet A</h3>
+                        <span class="age">A2 + 2 años</span>
+                        <p>Motos sin límites. Para los más experimentados.</p>
+                        <p><strong>Requiere:</strong> Permiso A2 con 2 años de antigüedad</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-image-placeholder"><img src="carnets/cap-425x272.jpg" alt="Permiso B" style="width:100%;height:100%;object-fit:cover;"></div>
+                    <div class="card-content">
+                        <h3>CAP</h3>
+                        <span class="age">Profesional</span>
+                        <p>Certificado de Aptitud Profesional. 35 horas de formación.</p>
+                        <p><strong>Para:</strong> Conductores profesionales</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alumnos -->
+    <section id="alumnos" class="alumnos-section">
+        <div class="section-container">
+            <h2>👨‍🎓 Área de Alumnos</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 2rem;">
+                Accede a tu plataforma de teórica online y recursos exclusivos
+            </p>
+            
+            <div class="alumnos-content">
+                <div class="alumnos-card">
+                    <h3>📱 Acceso a Plataforma Online</h3>
+                    <p>Estudia donde y cuando quieras, 24/7</p>
+                    <ul class="access-steps">
+                        <li><strong>Paso 1:</strong> Accede a la plataforma</li>
+                        <li><strong>Paso 2:</strong> Código de acceso: <strong style="color: var(--rojo-autoescuela); font-size: 1.2rem;">aragon</strong></li>
+                        <li><strong>Paso 3:</strong> Si usas móvil, selecciona <strong style="color: var(--rojo-autoescuela); font-size: 1.2rem;">Guipúzcoa</strong> → <strong style="color: var(--rojo-autoescuela); font-size: 1.2rem;">AUTOESCUELA ARAGÓN</strong></li>
+                        <li><strong>Paso 4:</strong> Identifícate con tu usuario y contraseña</li>
+                    </ul>
+                    <div class="external-links">
+                        <a href="https://matferline.com/alumno/index.php" class="external-link" target="_blank">
+                            🚀 Acceder Ahora
+                        </a>
+                    </div>
+                </div>
+
+                <div class="alumnos-card">
+                    <h3>🔗 Enlaces Útiles</h3>
+                    <p>Recursos oficiales para tu formación</p>
+                    <div class="enlaces-utiles-links">
+                        <a href=" https://www.dgt.es/inicio/" class="external-link" target="_blank">
+                            DGT
+                        </a>
+                        <a href="https://sede.dgt.gob.es/es/permisos-de-conducir/permiso-por-puntos/consulta-de-puntos/" class="external-link" target="_blank">
+                            Consulta Puntos
+                        </a>
+                        <a href="https://www.dgt.es/nuestros-servicios/permisos-de-conducir/obtener-un-nuevo-permiso-de-conducir/consulta-tu-nota-de-examen/" class="external-link" target="_blank">
+                            Notas de examen
+                        </a>
+                        <a href="http://www.autoeskolak.com" class="external-link" target="_blank">
+                            Autoeskolak.com
+                        </a>
+                    </div>
+                </div>
+
+                <div class="alumnos-card">
+                    <h3>⭐ Opiniones de Alumnos</h3>
+                    <p style="font-style: italic; margin-top: 1rem; line-height: 1.8;">
+                        "Hice el teórico de coche y moto y se me hizo muy ameno y rápido. Los profesores que tuve tenían mucha paciencia y explicaban muy bien.
+                        Tanto los exámenes teóricos como los prácticos los aprobé todos a la primera. Además pude elegir los horarios y pude parar durante los exámenes y más tarde retomarlo."
+                    </p>
+                    <p style="margin-top: 1rem; color: var(--rojo-autoescuela); font-weight: 600;">
+                        - Eider Eceiza
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ventajas -->
+    <section id="ventajas" class="features">
+        <div class="section-container">
+            <h2>⭐ ¿Por qué elegirnos?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">💻</div>
+                    <h3>Teórico Online 24/7</h3>
+                    <p>Estudia cuando quieras, donde quieras</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Alta Tasa de Aprobados</h3>
+                    <p>Nuestros resultados nos avalan</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">👨‍🏫</div>
+                    <h3>Profesores Experimentados</h3>
+                    <p>Pacientes y profesionales</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <h3>Mejor Precio</h3>
+                    <p>Calidad al mejor coste</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ubicaciones -->
+    <section id="ubicaciones">
+        <div class="section-container">
+            <h2>📍 Nuestras Ubicaciones</h2>
+            <div class="locations-grid">
+                <div class="location-card">
+                    <div class="location-map">
+                        <!-- Aquí puedes poner tu iframe de Google Maps -->
+                        <!-- <div class="map-placeholder">
+                            🗺️ Google Maps - Amara
+                            <small style="margin-top: 0.5rem; font-size: 0.9rem;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2903.5129813708313!2d-1.9809717238416205!3d43.30351977112086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd51aff009afa463%3A0x5c64af7dd3e27309!2sAUTOESCUELA%20ARAG%C3%93N!5e0!3m2!1ses!2ses!4v1771413410405!5m2!1ses!2ses" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></small>
+                        </div> -->
+                        <!-- Ejemplo de iframe:
+                        <iframe src="https://www.google.com/maps/embed?pb=..." allowfullscreen="" loading="lazy"></iframe>
+                        -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2903.5129813708313!2d-1.9809717238416205!3d43.30351977112086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd51aff009afa463%3A0x5c64af7dd3e27309!2sAUTOESCUELA%20ARAG%C3%93N!5e0!3m2!1ses!2ses!4v1771413410405!5m2!1ses!2ses" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="location-info-container">
+                        <h3>📍 Amara</h3>
+                        <div class="location-info">
+                            <div class="info-item">
+                                <span>📞</span>
+                                <a href="tel:943452270">943 452 270</a>
+                            </div>
+                            <div class="info-item">
+                                <span>🕐</span>
+                                <span>Lunes-Viernes: 10:00 - 13:00 | 16:00 - 19:00</span>
+                            </div>
+                            <div class="info-item">
+                                <span>✉️</span>
+                                <a href="mailto:amara@autoescuelaaragon.com">amara@autoescuelaaragon.com</a>
+                            </div>
+                        </div>
+                        <a href="https://maps.google.com/?q=Autoescuela+Aragon+Amara+San+Sebastian" target="_blank" class="map-button">
+                            🗺️ Abrir en Google Maps
+                        </a>
+                    </div>
+                </div>
+
+                <div class="location-card">
+                    <div class="location-map">
+                        <!-- <div class="map-placeholder">
+                            🗺️ Google Maps - Eguia
+                            <small style="margin-top: 0.5rem; font-size: 0.9rem;">(Añade tu iframe de Google Maps aquí)</small>
+                        </div> -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2902.916862781472!2d-1.9747119238409434!3d43.315999771120005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd51a55e954cf69f%3A0xbb2012cb438ca64f!2sAutoescuela%20Aragon!5e0!3m2!1ses!2ses!4v1771413582641!5m2!1ses!2ses" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="location-info-container">
+                        <h3>📍 Eguia</h3>
+                        <div class="location-info">
+                            <div class="info-item">
+                                <span>📞</span>
+                                <a href="tel:943287536">943 287 536</a>
+                            </div>
+                            <div class="info-item">
+                                <span>🕐</span>
+                                <span>Lunes-Viernes: 11:00 - 13:00. Tardes cerrado</span>
+                            </div>
+                            <div class="info-item">
+                                <span>✉️</span>
+                                <a href="mailto:eguia@autoescuelaaragon.com">eguia@autoescuelaaragon.com</a>
+                            </div>
+                        </div>
+                        <a href="https://maps.google.com/?q=Autoescuela+Aragon+Eguia+San+Sebastian" target="_blank" class="map-button">
+                            🗺️ Abrir en Google Maps
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contacto">
+        <div class="section-container">
+            <h2>📞 ¡Contáctanos!</h2>
+            <div style="text-align: center; margin-top: 2rem;">
+                <p style="font-size: 1.3rem; margin-bottom: 2rem;">¿Listo para empezar? ¡Hablemos! 💬</p>
+                <div class="cta-buttons">
+                    <a href="tel:943452270" class="btn btn-primary">Llamar Amara 📞</a>
+                    <a href="tel:943287536" class="btn btn-primary">Llamar Eguia 📞</a>
+                    <a href="mailto:amara@autoescuelaaragon.com" class="btn btn-secondary">Enviar Email ✉️</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Autoescuela Aragón</h3>
+                <p>Tu autoescuela de confianza en San Sebastián desde hace años</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📞 Amara: 943 452 270</p>
+                <p>📞 Eguia: 943 287 536</p>
+                <p>✉️ amara@autoescuelaaragon.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Horarios</h3>
+                <p><strong>Amara:</strong> 10:00-13:00 | 16:00-19:00</p>
+                <p><strong>Eguia:</strong> 11:00-13:00</p>
+            </div>
+        </div>
+
+        <div class="vacation-notice">
+            🏖️ Vacaciones: Cerrado del 9 al 25 de Agosto 🏖️
+        </div>
+
+        <div class="copyright">
+            <p>&copy; 2026 Autoescuela Aragón - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        
+        // Tarjetas expandibles
+        function toggleCard(btn) {
+            const extra = btn.nextElementSibling;
+            const isOpen = extra.classList.contains('open');
+            extra.classList.toggle('open', !isOpen);
+            btn.classList.toggle('open', !isOpen);
+            btn.textContent = isOpen ? 'Ver más ▾' : 'Ver menos ▴';
+        }
+        
+        // Menu Toggle
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Carousel
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const totalSlides = slides.length;
+
+        function updateCarousel() {
+            const container = document.getElementById('carouselContainer');
+            container.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        // Auto-advance carousel
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.getElementById('navMenu').classList.remove('active');
+                }
+            });
+        });
+
+        // Animate on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateY(30px)';
+                    setTimeout(() => {
+                        entry.target.style.transition = 'all 0.6s ease-out';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card, .feature-item, .location-card, .alumnos-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
